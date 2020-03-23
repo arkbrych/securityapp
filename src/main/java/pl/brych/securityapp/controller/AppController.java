@@ -1,14 +1,19 @@
 package pl.brych.securityapp.controller;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
+import pl.brych.securityapp.service.ActiveUserStore;
 
 import java.security.Principal;
 
 @RestController
 @RequiredArgsConstructor
 public class AppController {
+
+    @Autowired
+    ActiveUserStore activeUserStore;
 
     @GetMapping("/forAdmin")
     public String forAdmin(Principal principal) {
@@ -22,10 +27,10 @@ public class AppController {
 
     @GetMapping("/forAll")
     public String forAll(Principal principal) {
-        if (principal == null){
+        if (principal == null) {
             return "Czesć nieznajomy ";
         } else
-        return "Cześć " + principal.getName();
+            return "Cześć " + principal.getName();
     }
 
     @GetMapping("/goodbye")
